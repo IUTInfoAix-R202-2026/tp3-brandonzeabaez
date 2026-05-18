@@ -69,6 +69,32 @@ public class FormulaireConnexionController {
     //      - computeValue() : retourne true si le mot de passe est trop court (< 8)
     //        OU ne contient pas de majuscule OU ne contient pas de chiffre.
     //    Puis : boutonOk.disableProperty().bind(motDePasseInvalide);
+    champMotDePasse
+        .editableProperty()
+        .bind(Bindings.greaterThanOrEqual(champIdentifiant.textProperty().length(), 6));
+
+    boutonAnnuler
+        .disableProperty()
+        .bind(
+            Bindings.and(
+                champIdentifiant.textProperty().isEmpty(),
+                champMotDePasse.textProperty().isEmpty()));
+
+    boutonOk
+        .disableProperty()
+        .bind(
+            new BooleanBinding() {
+              {
+                super.bind(champMotDePasse.textProperty());
+              }
+
+              protected boolean computeValue() {
+                String chaine = champMotDePasse.textProperty().getValue();
+                return chaine.length() < 8
+                    || chaine.chars().noneMatch(Character::isUpperCase)
+                    || chaine.chars().noneMatch(Character::isDigit);
+              }
+            });
   }
 
   /**
@@ -80,11 +106,20 @@ public class FormulaireConnexionController {
     // TODO exercice 3 : afficher dans labelMessage l'identifiant suivi du mot
     // de passe masqué par autant d'étoiles que de caractères saisis.
     // Exemple : "alice ********" pour identifiant "alice" et mot de passe de 8 caractères.
+    StringBuilder masque = new StringBuilder();
+    for (int i = 0; i < champMotDePasse.getText().length(); ++i) {
+      masque.append("*");
+    }
+    ;
+    labelMessage.setText(champIdentifiant.getText() + " " + masque);
   }
 
   /** Action du bouton Annuler. Vide les deux champs et le label de message. */
   @FXML
   private void annuler() {
     // TODO exercice 3 : vider les deux champs et le label message.
+    champIdentifiant.setText("");
+    champMotDePasse.setText("");
+    labelMessage.setText("");
   }
 }
