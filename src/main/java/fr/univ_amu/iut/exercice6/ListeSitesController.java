@@ -41,6 +41,14 @@ public class ListeSitesController {
     //    haut, comme dans un flux d'activité.
     // 4. Retourner conteneurCartes.getChildren().size().
     int total = 0;
+    ++compteurDemo;
+    SiteCarte s = new SiteCarte();
+    s.setNumeroCarre("Carré " + 640000 + compteurDemo);
+    s.setNombrePoints(compteurDemo % 3 + 1);
+    s.setNombrePassages(compteurDemo * 2);
+    s.setJoursDepuisDernierPassage(compteurDemo * 4);
+    conteneurCartes.getChildren().addFirst(s);
+    total = getNombreCartes();
     return total;
   }
 
