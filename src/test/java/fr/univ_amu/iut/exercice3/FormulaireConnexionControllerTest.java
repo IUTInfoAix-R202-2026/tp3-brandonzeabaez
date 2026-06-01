@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -93,7 +92,7 @@ class FormulaireConnexionControllerTest {
         .isTrue();
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
+  // @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(5)
   void le_bouton_annuler_est_desactive_si_les_deux_champs_sont_vides(FxRobot robot) {
